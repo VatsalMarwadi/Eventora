@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+<body>
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<div class="w-full bg-white p-8 rounded-2xl shadow">
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">User Details</h1>
+
+  <div class="grid md:grid-cols-2 gap-6 text-gray-700 text-lg">
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>DOB:</strong> {{ user.dob }}</p>
+    <p><strong>Phone:</strong> {{ user.phone }}</p>
+  </div>
+
+  <div class="mt-8 flex gap-4">
+    <a href="{% url 'updateuser' user.id %}"
+       class="px-6 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
+       Edit
+    </a>
+
+    <a href="{% url 'deleteuser' user.id %}"
+       class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+       Delete
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}
+</body>
+</html>

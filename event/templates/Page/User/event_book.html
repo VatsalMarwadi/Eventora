@@ -1,0 +1,91 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Booking</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    {% include 'navbar.html' %}
+
+    <div
+      class="min-h-screen flex items-center justify-center px-4 py-8 sm:py-10"
+    >
+      <div class="w-full max-w-xl bg-white rounded-xl shadow-lg p-5 sm:p-8">
+        <div class="text-center mb-5">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-800">
+            Book Your Seat
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-1">
+            {{ event.event_name }}
+          </p>
+        </div>
+
+        <div
+          class="bg-gray-50 rounded-lg p-3 sm:p-4 mb-5 text-sm text-gray-700 space-y-1"
+        >
+          <p>{{ event.event_location }}</p>
+          <p>{{ event.event_date }}</p>
+          <p>₹{{ event.event_price }}</p>
+          <p class="font-semibold text-indigo-600">
+            Seats Left: {{ event.available_seats }}
+          </p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-3">
+          {% csrf_token %}
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Full Name</label
+            >
+            {{ form.name }}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Email Address</label
+            >
+            {{ form.email }}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Age</label
+            >
+            {{ form.age }}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Identity Proof</label
+            >
+            {{ form.id_proof_type }}
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Upload ID Proof</label
+            >
+            {{ form.id_proof_image }}
+          </div>
+
+          <button
+            type="submit"
+            class="w-full mt-3 bg-indigo-600 text-white py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 shadow-md text-sm sm:text-base"
+          >
+            Confirm Booking
+          </button>
+        </form>
+      </div>
+    </div>
+
+    {% include 'footer.html' %}
+  </body>
+</html>

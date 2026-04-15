@@ -1,0 +1,49 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+<body>
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<div class="w-full bg-white p-8 rounded-2xl shadow">
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-800">Booking Details</h1>
+
+  <!-- 🔹 ALL DETAILS FIRST -->
+  <div class="grid md:grid-cols-2 gap-6 text-gray-700 text-lg">
+
+    <p><strong>Event:</strong> {{ booking.event.event_name }}</p>
+    <p><strong>Name:</strong> {{ booking.name }}</p>
+    <p><strong>Email:</strong> {{ booking.email }}</p>
+    <p><strong>Age:</strong> {{ booking.age }}</p>
+    <p><strong>Booked By:</strong> {{ booking.user.name }}</p>
+    <p><strong>Booking Date:</strong> {{ booking.booked_at }}</p>
+    <p><strong>ID Type:</strong> {{ booking.id_proof_type }}</p>
+
+  </div>
+
+  <!-- 🔹 IMAGE LAST -->
+  <div class="mt-8">
+    <h3 class="text-xl font-semibold mb-3 text-gray-800">ID Proof</h3>
+
+    <div class="bg-gray-100 p-4 rounded-2xl flex justify-center">
+      <img src="{{ booking.id_proof_image.url }}"
+           class="h-[300px] object-contain rounded"/>
+    </div>
+  </div>
+
+  <!-- BUTTON -->
+  <div class="mt-8">
+    <a href="{% url 'deletebooking' booking.id %}"
+       class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+       Cancel Booking
+    </a>
+  </div>
+
+</div>
+
+{% endblock %}
+</body>
+</html>

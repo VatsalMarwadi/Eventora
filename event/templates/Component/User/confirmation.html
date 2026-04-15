@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Eventora</title>
+</head>
+
+<body style="margin: 0; padding: 0; background: #f3f4f6; font-family: Arial, sans-serif;">
+
+    <table align="center" width="100%" cellpadding="0" cellspacing="0" 
+        style="max-width: 650px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);">
+
+        <!-- HEADER -->
+        <tr>
+            <td style="background: linear-gradient(90deg, #4f46e5, #6366f1); padding: 25px; text-align: center;">
+                <h1 style="color: #fff; margin: 0;">Eventora</h1>
+                <p style="color: #e0e7ff; margin: 6px 0 0; font-size: 14px;">
+                    Your Booking is Confirmed
+                </p>
+            </td>
+        </tr>
+
+        <!-- IMAGE (FIXED FOR VERTICAL) -->
+        <tr>
+            <td style="padding: 20px; text-align: center; background: #f9fafb;">
+                <img src="{{ event_image.url }}" 
+                     alt="Event Image"
+                     style="max-width: 100%; max-height: 320px; height: auto; border-radius: 10px; display: block; margin: auto;" />
+            </td>
+        </tr>
+
+        <!-- CONTENT -->
+        <tr>
+            <td style="padding: 30px">
+
+                <h2 style="margin: 0 0 10px; color: #111827;">
+                    Hello, {{ name }}
+                </h2>
+
+                <p style="color: #4b5563; font-size: 15px; line-height: 1.6;">
+                    Your booking has been successfully confirmed. Get ready for an amazing experience!
+                </p>
+
+                <!-- EVENT INFO BOX -->
+                <table width="100%" cellpadding="10" cellspacing="0" 
+                    style="margin: 25px 0; border: 1px solid #e5e7eb; border-radius: 10px;">
+
+                    <tr>
+                        <td style="width: 40%; font-size: 14px;"><b>Event</b></td>
+                        <td style="font-size: 14px;">{{ event_name }}</td>
+                    </tr>
+
+                    <tr style="background: #f9fafb;">
+                        <td><b>Date</b></td>
+                        <td>{{ event_date|date:"d M Y" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Time</b></td>
+                        <td>{{ event_date|date:"H:i" }}</td>
+                    </tr>
+
+                    <tr style="background: #f9fafb;">
+                        <td><b>Location</b></td>
+                        <td>{{ event_location }}</td>
+                    </tr>
+
+                    <tr>
+                        <td><b>Booked By</b></td>
+                        <td>{{ booking.user.name }}</td>
+                    </tr>
+
+                </table>
+
+                <!-- DESCRIPTION -->
+                <h3 style="margin-bottom: 8px; color: #111827;">
+                    Event Details
+                </h3>
+
+                <p style="color: #6b7280; font-size: 14px; line-height: 1.7;">
+                    {{ event_description }}
+                </p>
+
+                <!-- NOTE -->
+                <p style="color: #9ca3af; font-size: 13px; text-align: center;">
+                    Please carry a valid ID proof while attending the event.
+                </p>
+
+            </td>
+        </tr>
+
+        <!-- FOOTER -->
+        <tr>
+            <td style="background: #f9fafb; padding: 20px; text-align: center;">
+                <p style="margin: 0; font-size: 13px; color: #6b7280;">
+                    © 2026 Eventora. All rights reserved.
+                </p>
+                <p style="margin-top: 5px; font-size: 12px; color: #9ca3af;">
+                    Need help? Contact us at support@eventora.com
+                </p>
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+</html>

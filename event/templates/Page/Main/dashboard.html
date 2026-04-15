@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    {% extends 'admin_base.html' %} {% block content %}
+
+    <div class="p-4 md:p-6 w-full overflow-x-hidden">
+      <!-- HEADER -->
+      <div class="mb-6">
+        <h1 class="text-xl md:text-2xl font-bold">Welcome, {{ name }}</h1>
+        <p class="text-gray-600 text-sm md:text-base">
+          Admin Dashboard Overview
+        </p>
+      </div>
+
+      <!-- STATS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-blue-100 p-4 rounded shadow">
+          <h2 class="text-base md:text-lg">Users</h2>
+          <p class="text-xl md:text-2xl font-bold">{{ total_users }}</p>
+        </div>
+
+        <div class="bg-green-100 p-4 rounded shadow">
+          <h2 class="text-base md:text-lg">Events</h2>
+          <p class="text-xl md:text-2xl font-bold">{{ total_events }}</p>
+        </div>
+
+        <div class="bg-yellow-100 p-4 rounded shadow">
+          <h2 class="text-base md:text-lg">Bookings</h2>
+          <p class="text-xl md:text-2xl font-bold">{{ total_bookings }}</p>
+        </div>
+
+        <div class="bg-red-100 p-4 rounded shadow">
+          <h2 class="text-base md:text-lg">Revenue</h2>
+          <p class="text-xl md:text-2xl font-bold">₹{{ total_revenue }}</p>
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="bg-white p-4 md:p-6 rounded shadow mb-6">
+        <h2 class="text-lg md:text-xl font-bold mb-4">
+          Bookings (Last 7 Days)
+        </h2>
+
+        <!-- FIXED HEIGHT (VERY IMPORTANT) -->
+        <div class="relative w-full h-[300px] md:h-[400px]">
+          <canvas id="bookingChart" class="w-full h-full"></canvas>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- RECENT BOOKINGS -->
+        <div class="bg-white p-4 md:p-6 rounded shadow">
+          <h2 class="text-lg md:text-xl font-bold mb-4">Recent Bookings</h2>
+
+          {% for b in recent_bookings %}
+          <div class="border-b py-2">
+            <p class="font-semibold text-sm md:text-base text-gray-700">
+              {{ b.name }}
+            </p>
+            <p class="text-xs md:text-sm text-gray-500">
+              Booked: {{ b.event.event_name }}
+            </p>
+          </div>
+          {% empty %}
+          <p class="text-gray-500 text-sm">No recent bookings</p>
+          {% endfor %}
+        </div>
+
+        <!-- RECENT EVENTS -->
+        <div class="bg-white p-4 md:p-6 rounded shadow">
+          <h2 class="text-lg md:text-xl font-bold mb-4">Recent Events</h2>
+
+          {% for e in recent_events %}
+          <div class="border-b py-2">
+            <p class="font-semibold text-sm md:text-base text-gray-700">
+              {{ e.event_name }}
+            </p>
+            <p class="text-xs md:text-sm text-gray-500">
+              {{ e.event_date|date:"d M Y" }}
+            </p>
+          </div>
+          {% empty %}
+          <p class="text-gray-500 text-sm">No recent events</p>
+          {% endfor %}
+        </div>
+
+        <!-- TOP EVENTS -->
+        <div class="bg-white p-4 md:p-6 rounded shadow lg:col-span-2">
+          <h2 class="text-lg md:text-xl font-bold mb-4">Top Events</h2>
+
+          {% for e in top_events %}
+          <div class="border-b py-2 flex justify-between text-sm md:text-base">
+            <span>{{ e.event_name }}</span>
+            <span class="text-gray-500">{{ e.total_bookings }} bookings</span>
+          </div>
+          {% empty %}
+          <p class="text-gray-500 text-sm">No data available</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ JSON DATA (ONLY ONCE) -->
+    <div id="chart-data">
+      {{ chart_labels|json_script:"chart-labels" }}
+      {{ chart_values|json_script:"chart-values" }}
+    </div>
+
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const labelsEl = document.getElementById("chart-labels");
+        const valuesEl = document.getElementById("chart-values");
+
+        if (!labelsEl || !valuesEl) {
+          console.error("Chart data missing in DOM");
+          return;
+        }
+
+        const labels = JSON.parse(labelsEl.textContent);
+        const data = JSON.parse(valuesEl.textContent);
+
+        const canvas = document.getElementById("bookingChart");
+
+        if (!canvas) {
+          console.error("Canvas not found");
+          return;
+        }
+
+        new Chart(canvas.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Bookings",
+                data: data,
+                borderWidth: 2,
+                fill: true,
+                tension: 0.3,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      });
+    </script>
+
+    {% endblock %}
+  </body>
+</html>

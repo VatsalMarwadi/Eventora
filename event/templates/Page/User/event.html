@@ -1,0 +1,66 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Pages</title>
+
+    <script>
+      function toggleFilter() {
+        const box = document.getElementById("filterBox");
+        box.classList.toggle("hidden");
+      }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    {% include 'navbar.html' %}
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+        <div class="lg:hidden mb-4">
+          <button
+            onclick="toggleFilter()"
+            class="w-full bg-indigo-600 text-white py-2 rounded-xl text-sm sm:text-base"
+          >
+            🔍 Filters
+          </button>
+        </div>
+
+        <div id="filterBox" class="hidden lg:block lg:col-span-3">
+          <div
+            class="bg-white rounded-2xl shadow-sm border p-4 sm:p-5 sticky top-6"
+          >
+            {% include 'filter.html' %}
+          </div>
+        </div>
+
+        <div class="lg:col-span-9">
+          {% if query %}
+          <div class="bg-white border rounded-xl p-3 sm:p-4 mb-5">
+            <p class="text-gray-600 text-xs sm:text-sm">
+              Showing results for:
+              <span class="font-semibold text-indigo-600">"{{ query }}"</span>
+            </p>
+          </div>
+          {% endif %}
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr"
+          >
+            {% for event in events %} 
+              {% include 'eventcard.html' %} 
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'footer.html' %}
+  </body>
+</html>

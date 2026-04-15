@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .input-style {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        transition: 0.2s;
+      }
+      .input-style:focus {
+        outline: none;
+        border-color: #6366f1;
+        box-shadow: 0 0 0 2px #c7d2fe;
+        background: white;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gradient-to-br from-indigo-100 to-purple-100 min-h-screen">
+    {% include 'navbar.html' %}
+
+    <div class="max-w-5xl mx-auto px-4 py-6 md:py-10">
+      <form method="post">
+        {% csrf_token %}
+
+        <!-- MAIN CARD -->
+        <div
+          class="bg-white rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+        >
+          <!-- LEFT PROFILE -->
+          <div
+            class="text-center border-b md:border-b-0 md:border-r pb-6 md:pb-0 pr-0 md:pr-6"
+          >
+            <div
+              class="w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-indigo-500 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl font-bold"
+            >
+              {{ user.name|first|upper }}
+            </div>
+
+            <h2 class="text-lg sm:text-xl font-bold mt-4">{{ user.name }}</h2>
+
+            <p class="text-gray-500 text-xs sm:text-sm">{{ user.email }}</p>
+
+            <div
+              class="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-600 space-y-2"
+            >
+              <p>{{ user.phone }}</p>
+              <p>{{ user.dob }}</p>
+            </div>
+          </div>
+
+          <!-- RIGHT FORM -->
+          <div class="md:col-span-2">
+            <h2
+              class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-800"
+            >
+              Edit Profile
+            </h2>
+
+            <div class="space-y-4">
+              <div>
+                <label class="text-sm font-medium text-gray-700">Name</label>
+                {{ form.name }}
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-gray-700">Email</label>
+                {{ form.email }}
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-gray-700"
+                  >Date of Birth</label
+                >
+                {{ form.dob }}
+              </div>
+
+              <div>
+                <label class="text-sm font-medium text-gray-700">Phone</label>
+                {{ form.phone }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="mt-6 flex flex-col sm:flex-row gap-4">
+          <a
+            href="{% url 'logout' %}"
+            class="w-full sm:w-1/3 text-center py-3 rounded-xl font-medium border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+          >
+            Logout
+          </a>
+
+          <button
+            type="submit"
+            class="w-full sm:w-2/3 py-3 rounded-xl text-white font-semibold bg-indigo-600 hover:bg-indigo-700 transition duration-200 shadow-md"
+          >
+            Update Profile
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {% include 'footer.html' %}
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+<body>
+{% extends 'admin_base.html' %}
+{% block content %}
+
+<div class="w-full bg-white p-8 rounded-2xl shadow">
+
+  <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">
+    Banner Details
+  </h1>
+
+  <div class="flex flex-col items-center">
+
+    <!-- 🖼️ VERTICAL IMAGE -->
+    <div class="bg-gray-100 p-4 rounded-2xl shadow-lg">
+      <img src="{{ banner.banner_image.url }}"
+           class="h-[350px] object-contain rounded"/>
+    </div>
+
+    <!-- DETAILS -->
+    <div class="mt-6 text-center space-y-3 text-lg">
+      <p><strong>Name:</strong> {{ banner.banner_name }}</p>
+
+      <p>
+        <strong>Status:</strong>
+        {% if banner.is_active %}
+          <span class="text-green-600 font-semibold">Active</span>
+        {% else %}
+          <span class="text-red-500 font-semibold">Inactive</span>
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="mt-6 flex gap-4">
+      <a href="{% url 'updatebanner' banner.id %}"
+         class="px-6 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
+         Edit
+      </a>
+
+      <a href="{% url 'deletebanner' banner.id %}"
+         class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+         Delete
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
+</body>
+</html>

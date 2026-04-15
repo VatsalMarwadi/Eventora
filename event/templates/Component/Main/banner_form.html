@@ -1,0 +1,55 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+  <body>
+    {% extends 'admin_base.html' %} {% block content %}
+
+    <div class="w-full">
+      <div class="bg-white p-8 rounded-2xl shadow-md w-full overflow-hidden">
+        <h2 class="text-2xl font-bold mb-6">
+          {% if page == 'update' %} Update Banner {% else %} Add Banner {% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+
+          <div>
+            <label class="block mb-1">Banner Name</label>
+            {{ form.banner_name }}
+          </div>
+
+          {% if page == 'update' %}
+          <div>
+            <label class="block mb-2">Current Image</label>
+            <img
+              src="{{ banner.banner_image.url }}"
+              class="w-40 max-w-full h-24 object-cover rounded"
+            />
+          </div>
+          {% endif %}
+
+          <div>
+            <label>Banner Image</label>
+            {{ form.banner_image }}
+          </div>
+
+          <div class="flex items-center space-x-2">
+            {{ form.is_active }}
+            <label>Active</label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white rounded-xl"
+          >
+            {% if page == 'update' %} Update Banner {% else %} Save Banner {% endif %}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+  <body>
+    <div
+      id="sidebar"
+      class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 flex flex-col bg-[#0f172a] text-gray-200 p-5 transform -translate-x-full md:translate-x-0 transition duration-300 z-30 shadow-2xl overflow-y-auto"
+    >
+      <form method="GET" action="{% url 'admin_search' %}" class="mb-6">
+  <input
+    type="text"
+    name="search"
+    value="{{ query|default:'' }}"
+    placeholder="Search users, events, bookings, banners..."
+    class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+  />
+</form>
+
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a
+            href="{% url 'dashboard' %}"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg transition"
+          >
+            <i class="fas fa-chart-line"></i> Dashboard
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'eventlist' %}"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg transition"
+          >
+            <i class="fas fa-calendar-alt"></i> Events
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'bannerlist' %}"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg transition"
+          >
+            <i class="fas fa-image"></i> Banners
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'userlist' %}"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg transition"
+          >
+            <i class="fas fa-users"></i> Users
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="{% url 'bookinglist' %}"
+            class="flex items-center gap-3 px-4 py-2 rounded-lg transition"
+          >
+            <i class="fas fa-ticket-alt"></i> Bookings
+          </a>
+        </li>
+      </ul>
+
+      <div class="mt-auto pt-6 border-t border-gray-700">
+        {% if request.session.user_id %}
+        <a
+          href="{% url 'logout' %}"
+          class="block text-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+        >
+          Logout
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

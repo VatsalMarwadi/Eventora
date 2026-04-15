@@ -1,0 +1,27 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+  <body>
+    <nav class="bg-white shadow-md fixed top-0 w-full z-40 border-b">
+      <div class="flex items-center justify-between px-4 md:px-8 h-16">
+        <div class="flex items-center gap-4 w-full">
+          <button
+            onclick="toggleSidebar()"
+            class="md:hidden text-gray-700 text-xl flex-shrink-0"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <a
+            href="{% url 'dashboard' %}"
+            class="text-lg md:text-xl font-bold text-indigo-600 tracking-wide truncate"
+          >
+            Eventora
+          </a>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventora</title>
+  </head>
+  <body>
+    <div class="bg-white p-4 sm:p-5 rounded-2xl w-full">
+      <form method="GET" class="flex flex-col gap-4 sm:gap-5">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Location</label
+          >
+          <input
+            type="text"
+            name="location"
+            class="w-full border p-2 rounded-lg"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Category</label
+          >
+          <select name="category" class="w-full border p-2 rounded-lg">
+            <option value="">All Categories</option>
+            <option value="tech">Tech</option>
+            <option value="music">Music</option>
+            <option value="sports">Sports</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Date From</label
+            >
+            <input
+              type="date"
+              name="date_from"
+              class="w-full border p-2 rounded-lg"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"
+              >Date To</label
+            >
+            <input
+              type="date"
+              name="date_to"
+              class="w-full border p-2 rounded-lg"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Event Type</label
+          >
+          <select name="type" class="w-full border p-2 rounded-lg">
+            <option value="">All Events</option>
+            <option value="today">Today</option>
+            <option value="upcoming">Upcoming</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Price Range</label
+          >
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <input
+              type="number"
+              name="min_price"
+              class="border p-2 rounded-lg"
+            />
+            <input
+              type="number"
+              name="max_price"
+              class="border p-2 rounded-lg"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"
+            >Sort By</label
+          >
+          <select name="sort" class="w-full border p-2 rounded-lg">
+            <option value="">Default</option>
+            <option value="price_low">Price Low → High</option>
+            <option value="price_high">Price High → Low</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+
+        <button
+          class="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-lg w-full"
+        >
+          Apply Filters
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

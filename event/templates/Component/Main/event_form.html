@@ -1,0 +1,101 @@
+<!doctype html>
+<head>
+  <title>Eventora</title>
+</head>
+<html>
+  <body>
+    {% extends 'admin_base.html' %} {% block content %}
+
+    <div class="w-full">
+      <div class="bg-white p-8 rounded-2xl shadow-md w-full overflow-hidden">
+        <h2 class="text-2xl font-bold mb-6">
+          {% if page == 'update' %} Update Event {% else %} Add Event {% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block mb-1 font-medium text-gray-700"
+                >Event Name</label
+              >
+              {{ form.event_name }}
+            </div>
+
+            <div>
+              <label class="block mb-1 font-medium text-gray-700"
+                >Event Date</label
+              >
+              {{ form.event_date }}
+            </div>
+
+            <div>
+              <label class="block mb-1 font-medium text-gray-700"
+                >Category</label
+              >
+              {{ form.event_category }}
+            </div>
+
+            <div>
+              <label class="block mb-1 font-medium text-gray-700">Price</label>
+              {{ form.event_price }}
+            </div>
+
+            <div>
+              <label class="block mb-1 font-medium text-gray-700"
+                >Total Seats</label
+              >
+              {{ form.total_seats }}
+            </div>
+
+            <div>
+              <label class="block mb-1 font-medium text-gray-700"
+                >Available Seats</label
+              >
+              {{ form.available_seats }}
+            </div>
+          </div>
+
+          <div>
+            <label class="block mb-1 font-medium text-gray-700">Location</label>
+            {{ form.event_location }}
+          </div>
+
+          {% if page == 'update' %}
+          <div>
+            <label class="block mb-2">Current Image</label>
+            <img
+              src="{{ event.event_image.url }}"
+              class="w-40 max-w-full h-40 object-cover rounded mb-2"
+            />
+          </div>
+          {% endif %}
+
+          <div>
+            <label>Event Image</label>
+            {{ form.event_image }}
+          </div>
+
+          <div>
+            <label class="block mb-1 font-medium text-gray-700"
+              >Description</label
+            >
+            {{ form.event_description }}
+          </div>
+
+          <div class="pt-4">
+            <button
+              type="submit"
+              class="w-full md:w-auto px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition"
+            >
+              {% if page == 'update' %} Update Event {% else %} Save Event {% endif %}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% endblock %}
+  </body>
+</html>

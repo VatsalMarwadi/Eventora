@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      .carousel {
+        height: 600px;
+      }
+
+      @media (max-width: 768px) {
+        .carousel {
+          height: 250px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="w-full px-2 sm:px-4 mt-4 sm:mt-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="relative overflow-hidden rounded-2xl shadow-xl carousel">
+          {% if banners %} {% for banner in banners %}
+          <div
+            class="slide w-full h-full {% if not forloop.first %}hidden{% endif %}"
+          >
+            <img
+              src="{{ banner.banner_image.url }}"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          {% endfor %}
+
+          <button
+            id="prev"
+            class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 sm:p-3 rounded-full"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <button
+            id="next"
+            class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 sm:p-3 rounded-full"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <div
+            class="absolute bottom-2 sm:bottom-4 w-full flex justify-center gap-2"
+          >
+            {% for banner in banners %}
+            <span
+              class="dot w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white/40 rounded-full cursor-pointer"
+            ></span>
+            {% endfor %}
+          </div>
+
+          {% else %}
+          <div class="flex items-center justify-center h-full bg-white">
+            <p>No banners available</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let slides = document.querySelectorAll(".slide");
+      let dots = document.querySelectorAll(".dot");
+      let index = 0;
+
+      function showSlide(i) {
+        slides.forEach((s) => s.classList.add("hidden"));
+        dots.forEach((d) => d.classList.remove("bg-white"));
+        slides[i].classList.remove("hidden");
+        dots[i].classList.add("bg-white");
+      }
+
+      document.getElementById("next").onclick = () => {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+      };
+
+      document.getElementById("prev").onclick = () => {
+        index = (index - 1 + slides.length) % slides.length;
+        showSlide(index);
+      };
+
+      dots.forEach((dot, i) => {
+        dot.onclick = () => {
+          index = i;
+          showSlide(index);
+        };
+      });
+
+      setInterval(() => {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+      }, 4000);
+
+      showSlide(index);
+    </script>
+  </body>
+</html>
